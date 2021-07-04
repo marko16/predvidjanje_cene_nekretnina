@@ -8,11 +8,14 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import ExtraTreesRegressor
 import tensorflow as tf
 import tensorflow.keras.layers as layers
+import numpy as np
 
 # data loading
 
-data = pd.read_csv('house_data.csv', usecols=['Id', 'LotArea', 'MasVnrArea', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'GrLivArea', 'GarageArea',
-              'WoodDeckSF', 'OpenPorchSF', 'SalePrice'])
+data = pd.read_csv('house_data.csv',
+                   usecols=['Id', 'LotArea', 'MasVnrArea', 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF',
+                            'GrLivArea', 'GarageArea',
+                            'WoodDeckSF', 'OpenPorchSF', 'SalePrice'])
 data.set_index('Id')
 
 # print(data.head(10))
@@ -80,26 +83,29 @@ model.fit(info_train2, price_train2, epochs=150)
 predictions = model.predict(info_test2)
 
 print('-------------------------------------------------------------------------------')
-print('Explained Variance Score of LINEAR REGRESSION model is {}'.format(
-    explained_variance_score(price_test, lr_prediction)))
+print('Average price deviation of LINEAR REGRESSION model is {}'.format(
+    sum(price_test) / len(price_test) - sum(lr_prediction) / len(lr_prediction)))
 print('R-Squared of LINEAR REGRESSION model is {}'.format(r2_score(price_test, lr_prediction)))
 
 print('-------------------------------------------------------------------------------')
-print('Explained Variance Score of DECISION TREE model is {}'.format(
-    explained_variance_score(price_test, tree_prediction)))
+print('Average price deviation of DECISION TREE model is {}'.format(
+    sum(price_test) / len(price_test) - sum(tree_prediction) / len(tree_prediction)))
 print('R-Squared of DECISION TREE model is {}'.format(r2_score(price_test, tree_prediction)))
 
 print('-------------------------------------------------------------------------------')
-print('Explained Variance Score of RANDOM FOREST model is {}'.format(
-    explained_variance_score(price_test, forest_prediction)))
+print('Average price deviation of RANDOM FOREST model is {}'.format(
+    sum(price_test) / len(price_test) - sum(forest_prediction) / len(forest_prediction)))
 print('R-Squared of RANDOM FOREST model is {}'.format(r2_score(price_test, forest_prediction)))
 
 print('-------------------------------------------------------------------------------')
 print(
-    'Explained Variance Score of EXTRA TREE model is {}'.format(explained_variance_score(price_test, extra_prediction)))
+    'Average price deviation of EXTRA TREE model is {}'.format(
+        sum(price_test) / len(price_test) - sum(extra_prediction) / len(extra_prediction)))
 print('R-Squared of EXTRA TREE model is {}'.format(r2_score(price_test, extra_prediction)))
 
 print('-------------------------------------------------------------------------------')
+
 print(
-    'Explained Variance Score of NEURAL NETWORK model is {}'.format(explained_variance_score(price_test2, predictions)))
+    'Average price deviation Score of NEURAL NETWORK model is {}'.format(
+        sum(price_test) / len(price_test) - sum(predictions) / len(predictions)))
 print('R-Squared of NEURAL NETWORK model is {}'.format(r2_score(price_test2, predictions)))
