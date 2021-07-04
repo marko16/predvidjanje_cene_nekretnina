@@ -22,3 +22,7 @@ Dataset koji koristimo biće podeljen na sledeći način:
 - Trening skup - 80%
 - Validacioni skup - 10%
 - Test skup - 10%
+
+## Pokretanje aplikacije:
+Pre pokretanja proveriti da li je preuzet skup podataka koji se nalazi u repozitorijumu (house_data.csv). Zatim je potrebno importovati sve biblioteke koje aplikacija koristi.
+Napomena: Tensorflow biblioteka radi samo sa 64bit verzijama python-a.
